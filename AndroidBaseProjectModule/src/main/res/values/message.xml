@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <string name="error_unknown">Unknown Error.</string>
+    <string name="error_empty_field">Please complete all details.</string>
+
+
+    <!-- Credential -->
+    <string name="error_loginid_empty_field">Login ID is required.</string>
+    <string name="error_password_empty_field">Password field is required.</string>
+    <string name="error_password_not_match">New password does not match.</string>
+    <string name="error_password_invalid">Password must contain at least 8 alphanumeric characters.</string>
+
+    <!-- Permission -->
+    <string name="error_permission_not_granted">Permission is not granted</string>
+
+</resources>
