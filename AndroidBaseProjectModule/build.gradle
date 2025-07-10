@@ -41,7 +41,7 @@ dependencies {
     def androidEspressoVersion = '3.0.2'
 
     // google
-    def googleDaggerVersion = '2.27'
+    def googleDaggerVersion = '2.40.3'
 
     // square
     def squareOkHttpVersion = '3.8.0'
