@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import com.wenyang.androidbaseprojectmodule.base.fragment.BaseFragment
 
 import com.wenyang.androidbaseprojecttestapp.R
-import kotlinx.android.synthetic.main.fragment_first_child.*
+import com.wenyang.androidbaseprojecttestapp.databinding.FragmentFirstChildBinding
 import javax.inject.Inject
 
-class FirstChildFragment : BaseFragment<FirstChildFragmentView, FirstChildFragmentPresenter>(), FirstChildFragmentView {
+class FirstChildFragment : BaseFragment<FragmentFirstChildBinding, FirstChildFragmentView, FirstChildFragmentPresenter>(), FirstChildFragmentView {
 
     override var dataArrayList: ArrayList<String>? = null
 
@@ -24,13 +24,14 @@ class FirstChildFragment : BaseFragment<FirstChildFragmentView, FirstChildFragme
     override lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun setupRecyclerView() {
-        recyclerview_firstchildfragment.adapter = dataAdapter
-        recyclerview_firstchildfragment.setHasFixedSize(true)
-        recyclerview_firstchildfragment.layoutManager = linearLayoutManager
+        viewBinding.recyclerviewFirstchildfragment.adapter = dataAdapter
+        viewBinding.recyclerviewFirstchildfragment.setHasFixedSize(true)
+        viewBinding.recyclerviewFirstchildfragment.layoutManager = linearLayoutManager
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_first_child
-
+    override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFirstChildBinding {
+        return FragmentFirstChildBinding.inflate(inflater, container, false)
+    }
 
 
 

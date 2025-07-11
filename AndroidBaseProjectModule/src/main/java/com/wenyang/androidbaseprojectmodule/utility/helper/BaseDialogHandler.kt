@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import com.wenyang.androidbaseprojectmodule.R
 import com.wenyang.androidbaseprojectmodule.utility.extension.logcat
-import kotlinx.android.synthetic.main.dialog_edit_text.view.*
+import com.wenyang.androidbaseprojectmodule.databinding.DialogEditTextBinding
 
 /**
  * Created by wenyang on 8/12/17.
@@ -134,20 +134,20 @@ abstract class BaseDialogHandler constructor(val context: Context) {
                            negativeButtonText: String? = null,
                            callback: EditTextDialogHandlerCallback) {
 
-        val view = inflater.inflate(R.layout.dialog_edit_text, null)
+        val viewBinding = DialogEditTextBinding.inflate(inflater)
 
 
-        view.textinputlayout_eddittextdialog.hint = hint
+        viewBinding.textinputlayoutEddittextdialog.hint = hint
 
         val dialogBuilder = AlertDialog.Builder(context)
 
         dialogBuilder.setTitle(title)
-        dialogBuilder.setView(view)
+        dialogBuilder.setView(viewBinding.root)
         dialogBuilder.setPositiveButton(positiveButtonText) { dialog, which ->
 
             dialog.dismiss()
 
-            val text = view.edittext_edittextdialog.text.toString()
+            val text = viewBinding.edittextEdittextdialog.text.toString()
 
             callback.onPositiveButtonClick(text)
         }

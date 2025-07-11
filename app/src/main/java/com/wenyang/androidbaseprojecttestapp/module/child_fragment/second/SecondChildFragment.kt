@@ -9,18 +9,19 @@ import android.view.ViewGroup
 import com.wenyang.androidbaseprojectmodule.base.fragment.BaseFragment
 
 import com.wenyang.androidbaseprojecttestapp.R
-import kotlinx.android.synthetic.main.fragment_second_child.*
+import com.wenyang.androidbaseprojecttestapp.databinding.FragmentSecondChildBinding
 
-class SecondChildFragment : BaseFragment<SecondChildFragmentView, SecondChildFragmentPresenter>(), SecondChildFragmentView{
+class SecondChildFragment : BaseFragment<FragmentSecondChildBinding, SecondChildFragmentView, SecondChildFragmentPresenter>(), SecondChildFragmentView{
     override fun setText(string: String) {
 
-        textview_secondchildfragment.text = string
+        viewBinding.textviewSecondchildfragment.text = string
     }
 
     override var string: String = ""
 
-    override fun getLayoutId(): Int = R.layout.fragment_second_child
-
+    override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSecondChildBinding {
+        return FragmentSecondChildBinding.inflate(inflater, container, false)
+    }
 
 
 

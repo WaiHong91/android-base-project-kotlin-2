@@ -2,8 +2,9 @@ package com.wenyang.androidbaseprojectmodule.base.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
-import androidx.annotation.LayoutRes
+import androidx.viewbinding.ViewBinding
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.wenyang.androidbaseprojectmodule.base.BasePresenter
@@ -15,22 +16,28 @@ import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
 
-abstract class BaseActivity<out V : BaseView, P : BasePresenter<V>> : AppCompatActivity(), HasAndroidInjector, BaseActivityView {
-    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
+abstract class BaseActivity<VB : ViewBinding, out V : BaseView, P : BasePresenter<V>> :
+    AppCompatActivity(), HasAndroidInjector, BaseActivityView {
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
     lateinit var presenter: P
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
-    @LayoutRes
-    abstract fun getLayoutResId(): Int
+    protected lateinit var viewBinding: VB
+        private set
+
+    abstract fun getViewBinding(inflater: LayoutInflater): VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        setContentView(getLayoutResId())
+        viewBinding = getViewBinding(layoutInflater)
+        setContentView(viewBinding.root)
 
         supportActionBar?.setDisplayShowHomeEnabled(true) // show or hide the default home button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

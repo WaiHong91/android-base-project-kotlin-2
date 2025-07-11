@@ -3,7 +3,7 @@ package com.wenyang.androidbaseprojectmodule.base.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.annotation.LayoutRes
+import androidx.viewbinding.ViewBinding
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -18,7 +18,7 @@ import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 
-abstract class BaseFragment<out V : BaseView, P : BasePresenter<V>>  : Fragment(), HasAndroidInjector{
+abstract class BaseFragment<VB : ViewBinding, out V : BaseView, P : BasePresenter<V>>  : Fragment(), HasAndroidInjector{
 
     //making it optional instead of lateinit to allow pass setup data even the fragment is not created yet
     @JvmField
@@ -30,6 +30,10 @@ abstract class BaseFragment<out V : BaseView, P : BasePresenter<V>>  : Fragment(
 
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
+    private var _viewBinding: VB? = null
+    protected val viewBinding: VB
+        get() = _viewBinding ?: throw IllegalStateException("ViewBinding is only valid between onCreateView and onDestroyView.")
+
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 //    @Inject
 //    lateinit var childFragmentInjector : DispatchingAndroidInjector<Fragment>
@@ -39,15 +43,15 @@ abstract class BaseFragment<out V : BaseView, P : BasePresenter<V>>  : Fragment(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         setHasOptionsMenu(enableOptionMenu())
-        return inflater.inflate(getLayoutId(), container, false)
+        _viewBinding = getViewBinding(inflater, container)
+        return viewBinding.root
     }
 
     open fun enableOptionMenu(): Boolean{
         return false
     }
 
-    @LayoutRes
-    abstract fun getLayoutId(): Int
+    abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +89,7 @@ abstract class BaseFragment<out V : BaseView, P : BasePresenter<V>>  : Fragment(
 
     override fun onDestroyView() {
         presenter?.onEnd()
+        _viewBinding = null
         super.onDestroyView()
     }
 
