@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 35
     defaultConfig {
         applicationId "com.wenyang.androidbaseprojecttestapp"
+        namespace "com.wenyang.androidbaseprojecttestapp"
         minSdkVersion 26
-        targetSdkVersion 31
+        targetSdkVersion 35
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
