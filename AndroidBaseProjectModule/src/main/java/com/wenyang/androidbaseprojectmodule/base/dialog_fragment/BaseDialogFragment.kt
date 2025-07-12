@@ -56,9 +56,6 @@ abstract class BaseDialogFragment<VB : ViewBinding, out V : BaseView, P : BasePr
         return false
     }
 
-    @LayoutRes
-    abstract fun getLayoutId(): Int
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
