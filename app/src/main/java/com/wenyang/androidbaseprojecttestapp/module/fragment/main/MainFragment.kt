@@ -19,9 +19,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentView, MainFra
 
 
     override fun setupTabViewPager() {
-        viewBinding.viewpagerMainfragment.adapter = momentViewPagerAdapter
+        viewBinding?.viewpagerMainfragment?.adapter = momentViewPagerAdapter
 
-        viewBinding.tablayoutMainfragment.setupWithViewPager(viewBinding.viewpagerMainfragment)
+        viewBinding?.tablayoutMainfragment?.setupWithViewPager(viewBinding?.viewpagerMainfragment)
     }
 
     @Inject

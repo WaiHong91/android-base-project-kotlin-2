@@ -30,8 +30,9 @@ abstract class BaseFragment<VB : ViewBinding, out V : BaseView, P : BasePresente
 
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    protected lateinit var viewBinding: VB
-        private set
+    private var _viewBinding: VB? = null
+    protected val viewBinding: VB?
+        get() = _viewBinding
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 //    @Inject
@@ -42,8 +43,8 @@ abstract class BaseFragment<VB : ViewBinding, out V : BaseView, P : BasePresente
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         setHasOptionsMenu(enableOptionMenu())
-        viewBinding = getViewBinding(inflater, container)
-        return viewBinding.root
+        _viewBinding = getViewBinding(inflater, container)
+        return viewBinding?.root
     }
 
     open fun enableOptionMenu(): Boolean{
@@ -88,6 +89,7 @@ abstract class BaseFragment<VB : ViewBinding, out V : BaseView, P : BasePresente
 
     override fun onDestroyView() {
         presenter?.onEnd()
+        _viewBinding = null
         super.onDestroyView()
     }
 

@@ -14,7 +14,7 @@ import com.wenyang.androidbaseprojecttestapp.databinding.FragmentSecondChildBind
 class SecondChildFragment : BaseFragment<FragmentSecondChildBinding, SecondChildFragmentView, SecondChildFragmentPresenter>(), SecondChildFragmentView{
     override fun setText(string: String) {
 
-        viewBinding.textviewSecondchildfragment.text = string
+        viewBinding?.textviewSecondchildfragment?.text = string
     }
 
     override var string: String = ""

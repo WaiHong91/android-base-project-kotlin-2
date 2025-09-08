@@ -24,9 +24,9 @@ class FirstChildFragment : BaseFragment<FragmentFirstChildBinding, FirstChildFra
     override lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun setupRecyclerView() {
-        viewBinding.recyclerviewFirstchildfragment.adapter = dataAdapter
-        viewBinding.recyclerviewFirstchildfragment.setHasFixedSize(true)
-        viewBinding.recyclerviewFirstchildfragment.layoutManager = linearLayoutManager
+        viewBinding?.recyclerviewFirstchildfragment?.adapter = dataAdapter
+        viewBinding?.recyclerviewFirstchildfragment?.setHasFixedSize(true)
+        viewBinding?.recyclerviewFirstchildfragment?.layoutManager = linearLayoutManager
     }
 
     override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFirstChildBinding {
