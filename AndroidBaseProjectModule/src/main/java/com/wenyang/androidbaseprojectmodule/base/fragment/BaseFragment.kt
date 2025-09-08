@@ -30,9 +30,8 @@ abstract class BaseFragment<VB : ViewBinding, out V : BaseView, P : BasePresente
 
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    private var _viewBinding: VB? = null
-    protected val viewBinding: VB
-        get() = _viewBinding ?: throw IllegalStateException("ViewBinding is only valid between onCreateView and onDestroyView.")
+    protected lateinit var viewBinding: VB
+        private set
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 //    @Inject
@@ -43,7 +42,7 @@ abstract class BaseFragment<VB : ViewBinding, out V : BaseView, P : BasePresente
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         setHasOptionsMenu(enableOptionMenu())
-        _viewBinding = getViewBinding(inflater, container)
+        viewBinding = getViewBinding(inflater, container)
         return viewBinding.root
     }
 
@@ -89,7 +88,6 @@ abstract class BaseFragment<VB : ViewBinding, out V : BaseView, P : BasePresente
 
     override fun onDestroyView() {
         presenter?.onEnd()
-        _viewBinding = null
         super.onDestroyView()
     }
 
