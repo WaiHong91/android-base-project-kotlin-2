@@ -33,8 +33,8 @@ abstract class BaseDialogFragment<VB : ViewBinding, out V : BaseView, P : BasePr
     @Inject lateinit var androidInjector : DispatchingAndroidInjector<Any>
 
     private var _viewBinding: VB? = null
-    protected val viewBinding: VB
-        get() = _viewBinding ?: throw IllegalStateException("ViewBinding is only valid between onCreateView and onDestroyView.")
+    protected val viewBinding: VB?
+        get() = _viewBinding
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
@@ -45,11 +45,11 @@ abstract class BaseDialogFragment<VB : ViewBinding, out V : BaseView, P : BasePr
 
     abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         setHasOptionsMenu(enableOptionMenu())
         _viewBinding = getViewBinding(inflater, container)
-        return viewBinding.root
+        return viewBinding?.root
     }
 
     open fun enableOptionMenu(): Boolean{
